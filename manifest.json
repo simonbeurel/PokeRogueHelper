@@ -1,7 +1,8 @@
 {
   "manifest_version": 2,
-  "name": "Capture d'écran",
+  "name": "PokeRogueHelper",
   "version": "1.0",
+  "description": "A helper extension for PokeRogue to assist during your fights.",
   "permissions": [
     "activeTab",
     "tabs",
@@ -9,8 +10,14 @@
     "http://*/*",
     "https://*/*"
   ],
+  "icons": {
+    "16": "icons/image16.png",
+    "48": "icons/image48.png",
+    "128": "icons/image128.png"
+  },
   "browser_action": {
-    "default_popup": "popup.html"
+    "default_popup": "popup.html",
+    "default_icon": "icons/image48.png"
   },
   "content_scripts": [
     {

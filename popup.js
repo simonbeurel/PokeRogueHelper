@@ -15,8 +15,19 @@ function retrieve_sorted_resistances(data) {
     return sortedResistances;
 }
 
+function displayResistancesOnPopup(sortedResistances) {
+    var resistances = document.getElementById('result');
+    resistances.innerHTML = '';
+    for (var key in sortedResistances) {
+        var resistance = document.createElement('li');
+        resistance.textContent = key + ': ' + sortedResistances[key];
+        resistances.appendChild(resistance);
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
 
+    //TODO: In a new version, there will be a text-recognition feature
     var captureButton = document.getElementById('captureButton');
     captureButton.addEventListener('click', function() {
         chrome.tabs.captureVisibleTab(null, {format: 'png'}, function(dataUrl) {
@@ -36,6 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    //Used for call the API and display the resistances
     var searchPokemon = document.getElementById('searchPokemon');
     searchPokemon.addEventListener('click', function() {
         var input = document.getElementById('pokemonInput');
@@ -50,14 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .then(data => {
                 var sortedResistances = retrieve_sorted_resistances(data);
-                // Display resistances
-                var resistances = document.getElementById('result');
-                resistances.innerHTML = '';
-                for (var key in sortedResistances) {
-                    var resistance = document.createElement('li');
-                    resistance.textContent = key + ': ' + sortedResistances[key];
-                    resistances.appendChild(resistance);
-                }
+                displayResistancesOnPopup(sortedResistances);
             })
             .catch(error => {
                 alert(error.message); // Display error message
